@@ -176,7 +176,7 @@ int main()
 
     while (1)
     {
-        ShowMenu();
+        manager.ShowMenu();
         cout << "¼±ÅÃ: ";
         cin >> choice;
         cout << endl;
