@@ -55,7 +55,7 @@ int Account::Withdraw(int money) // 출금액 반환, 부족 시 0 반환
     return money;
 }
 
-void Account::ShowAccInfo()
+void Account::ShowAccInfo() const
 {
     cout << "계좌ID: " << accID << endl;
     cout << "이 름: " << cusName << endl;
