@@ -27,7 +27,7 @@ public:
     int GetAccID() const;
     void Deposit(int money);
     int Withdraw(int money);
-    void ShowAccInfo();
+    void ShowAccInfo() const;
     ~Account();
 };
 
@@ -78,7 +78,7 @@ class  NormalAccount : public Account
 private:
     int interRate;
 public:
-    NormalAccount(int ID, int money, char *name, int rate)
+    NormalAccount(int ID, int money, char* name, int rate)
         :Account(ID, money, name), interRate(rate)
     { }
 
@@ -94,11 +94,11 @@ class HighCreditAccount : public NormalAccount
 private:
     int specialRate;
 public:
-    HighCreditAccount(int ID, int money, char *name, int rate, int special)
+    HighCreditAccount(int ID, int money, char* name, int rate, int special)
         :NormalAccount(ID, money, name, rate), specialRate(special)
     { }
 
-    virturl void Deposit(int money)
+    virtual void Deposit(int money)
     {
         NormalAccount::Deposit(money); // 원금과 이자추가
         Account::Deposit(money * (specialRate / 100.0)); // 특별이자추가
@@ -163,7 +163,7 @@ void AccountHandler::MakeNormalAccount(void)
     cout << "이자율: "; cin >> interRate;
     cout << endl;
 
-    accArr[accNum++] = new Account(id, balance, name, interRate);
+    accArr[accNum++] = new NormalAccount(id, balance, name, interRate);
 }
 
 void AccountHandler::MakeCreditAccount(void)
@@ -182,14 +182,16 @@ void AccountHandler::MakeCreditAccount(void)
     cout << "신용등급(1toA, 2toB, 3toC): "; cin >> creditLevel;
     cout << endl;
 
-    aswitch(creditLevel)
+    switch (creditLevel)
     {
-        case 1:
-            accArr[accNum++] = new HighCreditAccount(id, balance, name, interRate, LEVEL_A);
-        case 2:
-            accArr[accNum++] = new HighCreditAccount(id, balance, name, interRate, LEVEL_B);
-        case 3:
-            accArr[accNum++] = new HighCreditAccount(id, balance, name, interRate, LEVEL_C);
+    case 1:
+        accArr[accNum++] = new HighCreditAccount(id, balance, name, interRate, LEVEL_A);
+        break;
+    case 2:
+        accArr[accNum++] = new HighCreditAccount(id, balance, name, interRate, LEVEL_B);
+        break;
+    case 3:
+        accArr[accNum++] = new HighCreditAccount(id, balance, name, interRate, LEVEL_C);
     }
 }
 
