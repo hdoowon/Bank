@@ -35,7 +35,7 @@ public:
         strcpy(cusName, ref.cusName);
     }
 
-    int GetAccID() { return accID; }
+    int GetAccID() const { return accID; }
 
     void Deposit(int money)
     {
